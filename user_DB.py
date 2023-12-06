@@ -133,3 +133,34 @@ def get_crops_id(name):
         return result[0][0]
     else:
         return None
+    
+def get_crops_list(user_id):
+    conn = sqlite3.connect('user_data.sqlite')  # 데이터베이스 파일 이름 수정
+    cursor = conn.cursor()
+
+    cursor.execute(
+        'SELECT crops_name FROM crops, user_crops WHERE user_crops.user_id = ? and user_crops.crops_id = crops.crops_id', (user_id,))  # 쿼리 수정
+    result = cursor.fetchall()
+
+    conn.close()
+
+    if result:
+        result_list = [item[0] for item in result]
+        return result_list
+    else:
+        return None
+    
+def find_crops(crops_name):
+    conn = sqlite3.connect('user_data.sqlite')  # 데이터베이스 파일 이름 수정
+    cursor = conn.cursor()
+
+    cursor.execute(
+        'SELECT * FROM crops WHERE crops_name = ?', (crops_name,))  # 쿼리 수정
+    result = cursor.fetchall()
+
+    conn.close()
+
+    if result:
+        return result[0][0]
+    else:
+        return None
