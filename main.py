@@ -5,6 +5,7 @@ import sqlite3
 from user_DB import *
 from getPrice import getPrice
 from getGraph import getGraph
+from recommend_crops_list import recommend_crops_list
 import sys
 
 def add_crops(user_id):
@@ -30,8 +31,8 @@ def switch_case(case, user_id):
     switch_dict = {
         'case1': print_my_crops,
         'case2': add_crops,
-        'case3': get_crops_list,
-        #'case4': sys.exit("다음에 또 이용해 주세요.")
+        'case3': recommend_crops_list,        
+        #'case4': sys.exit("다음에 또 이용해 주세요."),
     }
     
     # 해당 case에 대한 함수 호출
@@ -72,7 +73,7 @@ def main():
         print(f"어서오세요 {user_name}님!\n")
         
         while True:
-            print("[1: 채소 가격 확인하기, 2: 채소 추가하기, 3: 종료하기]")
+            print("[1: 채소 가격 확인하기, 2: 채소 추가하기, 3: 채소 추천받기 4: 종료하기]")
             num = input(f"사용하실 서비스를 입력하세요: ")
             switch_case("case" + num, user_id)
             print("\n")
@@ -85,7 +86,7 @@ def main():
         user_name = input(f"이름: ")
         save_user(user_name, input(f"거주지: "))
 
-    
+        
 
     return
 

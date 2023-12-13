@@ -164,3 +164,18 @@ def find_crops(crops_name):
         return result[0][0]
     else:
         return None
+
+def get_location(user_id):
+    conn = sqlite3.connect('user_data.sqlite')  # 데이터베이스 파일 이름 수정
+    cursor = conn.cursor()
+
+    cursor.execute(
+        'SELECT location FROM users WHERE user_id = ?', (user_id,))  # 쿼리 수정
+    result = cursor.fetchall()
+
+    conn.close()
+
+    if result:
+        return result[0][0]
+    else:
+        return None
