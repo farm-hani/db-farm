@@ -51,9 +51,9 @@ def getPrice(crops_name):
             # print(f"품목 : {item_name}   오늘의 도매가 : {todayPrice}")
 
             if(item_name == crops_name):
-                return todayPrice, unit
+                return todayPrice, unit, productNo
             
-        return "-","-"
+        return "-","-","-"
             
     else:
         print(f'에러 코드 : {res.status_code}')

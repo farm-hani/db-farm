@@ -4,8 +4,8 @@ import json
 import sqlite3
 from user_DB import *
 from getPrice import getPrice
+from getGraph import getGraph
 import sys
-
 
 def add_crops(user_id):
 
@@ -30,8 +30,8 @@ def switch_case(case, user_id):
     switch_dict = {
         'case1': print_my_crops,
         'case2': add_crops,
-        #'case3': get_crops_list
-        'case3': sys.exit("다음에 또 이용해 주세요.")
+        'case3': get_crops_list,
+        #'case4': sys.exit("다음에 또 이용해 주세요.")
     }
     
     # 해당 case에 대한 함수 호출
@@ -40,20 +40,24 @@ def switch_case(case, user_id):
 def print_my_crops(user_id):
     res = get_crops_list(user_id)
 
-    myCrops = []
+    if res is None:
+        print("No crops found for this user.")
+    else:
+        myCrops = []
+        for element in res:
 
-    for element in res:
+            # 농산물
+            # print(element)
 
-        # 농산물
-        # print(element)
+            # 가격, 단위
+            price, unit, productNo = getPrice(element)
 
-        # 가격, 단위
-        price, unit = getPrice(element)
+            # 농산물 + 가격 튜플
+            myCrops.append((element, unit, price + '원', productNo))
 
-        # 농산물 + 가격 튜플
-        myCrops.append((element, unit, price))
-    
-    print(myCrops)
+            getGraph(element, unit, price, productNo)
+
+        print(myCrops)
 
 # main
 def main():
